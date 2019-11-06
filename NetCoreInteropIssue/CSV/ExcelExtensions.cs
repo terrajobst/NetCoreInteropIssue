@@ -1,9 +1,7 @@
-﻿using System;
-using System.IO;
+﻿using System.IO;
 using System.Runtime.InteropServices;
 
 using Microsoft.Office.Interop.Excel;
-using Microsoft.Win32;
 
 using Range = Microsoft.Office.Interop.Excel.Range;
 
@@ -11,17 +9,6 @@ namespace Microsoft.Csv
 {
     public static class ExcelExtensions
     {
-        public static bool IsExcelInstalled()
-        {
-            return Registry.ClassesRoot.OpenSubKey("Excel.Application") != null;
-        }
-
-        private static void AssertExcelIsInstalled()
-        {
-            if (!IsExcelInstalled())
-                throw new NotSupportedException("You do not have Excel installed. Sorry.");
-        }
-
         private static string GetTempCsvFile()
         {
             var tempFileName = Path.GetTempFileName();
@@ -32,8 +19,6 @@ namespace Microsoft.Csv
 
         public static void ViewInExcel(this CsvDocument csvDocument)
         {
-            AssertExcelIsInstalled();
-
             var a = new Application();
             try
             {
@@ -50,8 +35,6 @@ namespace Microsoft.Csv
 
         public static void SaveToExcel(this CsvDocument csvDocument, string fileName)
         {
-            AssertExcelIsInstalled();
-
             var a = new Application();
             try
             {
@@ -125,8 +108,6 @@ namespace Microsoft.Csv
 
         public static CsvDocument FromExcel(string fileName)
         {
-            AssertExcelIsInstalled();
-
             var csvFileName = GetTempCsvFile();
             var xlsxFileName = fileName;
 

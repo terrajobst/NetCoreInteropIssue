@@ -1,4 +1,4 @@
-﻿using System;
+﻿using Microsoft.Csv;
 
 namespace NetCoreInteropIssue
 {
@@ -6,7 +6,8 @@ namespace NetCoreInteropIssue
     {
         static void Main(string[] args)
         {
-            Console.WriteLine("Hello World!");
+            var document = new CsvDocument("Col1", "Col2");
+            document.ViewInExcel();
         }
     }
 }
